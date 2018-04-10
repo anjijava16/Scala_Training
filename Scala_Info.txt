@@ -1,0 +1,2158 @@
+------------------------------------------
+SCALA (Scalable Language)
+------------------------------------------
+Scala is `Functional + Object iwinnered` Programming Language
+
+Object Oriented Programming Language: Java, C++, Java Script, .Net, Python, C#, ...
+
+Functional Oriented Programming Language: C++, Java Script, Lisp, Erlang, ...
+
+In Scala every thing is a `OBJECT`
+
+We don't have any primitive datatypes like 'C, C++, JAVA, ...'
+
+------------------------------------------
+Scala-2.10 -> Java-1.6, 1.7
+
+Scala-2.11 -> Java-1.7, 1.8
+
+Scala-2.12 -> Java-1.8
+
+------------------------------------------
+
+iwinner@hadoop_dev:~$ scala
+Welcome to Scala version 2.11.7 (OpenJDK 64-Bit Server VM, Java 1.8.0_131).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> 
+
+------------------------------------------
+
+Scala provides REPL feature.
+
+Read Evaluate Print Loop (REPL)
+
+It already available this feature in Python, R, Groovy, ..
+
+------------------------------------------
+
+val -> value	->  immutable (only for read, no updates, not possible to reassign)
+
+var -> variable -> 	mutable (work for read,  updates, possible to reassign)
+
+------------------------------------------
+Syntax of Scala:
+------------------------------------------
+
+val <identifier> [: <data type>] = <value / expression>
+
+var <identifier> [: <data type>] = <value / expression>
+
+
+Scala supports `Type Infer`.
+
+Type Infer: based on the `vaule / expression` it is going to find `data type`
+
+
+------------------------------------------
+Literals in Scala:
+----------------------
+1
+10l
+20.5f
+30.6d
+'a'
+"hadoop_dev"
+true
+
+
+Define varaibles in Scala
+------------------------------------------
+
+val name : String = "hadoop_dev" ;
+
+(or)
+
+val name : String = "hadoop_dev"
+
+(or)
+
+val name = "hadoop_dev"
+
+------------------------------------------
+
+val id : Int = 10
+
+(or)
+
+val id = 10
+
+------------------------------------------
+
+val id = 10l
+
+(or)
+
+val id : Long = 10
+
+------------------------------------------
+
+val id : Long = 10l (correct)
+
+val id : Int = 10l (not correct, reason order is not there properly)
+
+------------------------------------------
+
+Order of data types in SCALA:
+---------------------------------
+
+Byte < Short < Int < Long < Float < Double
+
+Note:
+------
+1. Lower Order to Higher Order is automatic
+
+2. Higher Order to Lower Order use `to<DataType>` function
+
+------------------------------------------
+
+scala> val id : Long = 10l
+id: Long = 10
+
+scala> val id1 : Int = id
+<console>:11: error: type mismatch;
+ found   : Long
+ required: Int
+       val id1 : Int = id
+                       ^
+
+scala> val id1 : Int = id.toInt
+id1: Int = 10
+
+scala> 
+
+scala> val id1 = id.toInt
+id1: Int = 10
+
+------------------------------------------
+
+scala> id.to
+toByte   toDouble   toInt    toShort          
+toChar   toFloat    toLong   toString         
+
+------------------------------------------
+What is the difference between `asInstanceOf and isInstanceOf` ?
+------------------------------------------
+1. `asInstanceOf` convert the datatype into given datatype if possible other wise throws an exception
+
+2. `isInstanceOf` it will check the datatype if matches returns `true` otherwise returns `flase`
+
+3. Don't use `asInstanceOf`, better use `to<DataType>`
+
+
+
+val id : Int = 10
+
+id.isInstanceOf[Int]
+
+id.isInstanceOf[Long]
+
+------------------------------------------
+
+scala> val id : Int = 10
+id: Int = 10
+
+scala> id.isInstanceOf[Int]
+res0: Boolean = true
+
+scala> id.isInstanceOf[Long]
+res1: Boolean = false
+
+scala> id.isInstanceOf[Char]
+res2: Boolean = false
+
+
+
+------------------------------------------
+
+val id : Int = 10
+
+id.asInstanceOf[Int]
+
+id.asInstanceOf[Long]
+
+------------------------------------------
+
+scala> val id : Int = 10
+id: Int = 10
+
+scala> id.asInstanceOf[Int]
+res3: Int = 10
+
+scala> id.asInstanceOf[Long]
+res4: Long = 10
+
+scala> id.asInstanceOf[Double]
+res5: Double = 10.0
+
+scala> id.asInstanceOf[Float]
+res6: Float = 10.0
+
+scala> id.asInstanceOf[Boolean]
+java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Boolean
+  at scala.runtime.BoxesRunTime.unboxToBoolean(BoxesRunTime.java:85)
+  ... 33 elided
+
+scala> id.to
+toByte   toDouble   toInt    toShort          
+toChar   toFloat    toLong   toString         
+
+------------------------------------------
+Arthematic Operations in Scala
+------------------------------------------
++ - * / % 
+
+Scala supports `Operator Overloading`
+C++ supports `Operator Overloading`
+
+val a = 10
+
+val b = 20
+
+val c = a + b
+
+
+a + b   <====>   a.+(b)
+a - b   <====>   a.-(b)
+a * b   <====>   a.*(b)
+
+------------------------------------------
+
+scala> val a = 10
+a: Int = 10
+
+scala> val b = 20
+b: Int = 20
+
+scala> val c = a + b
+c: Int = 30
+
+scala> val c = a.+(b)
+c: Int = 30
+
+------------------------------------------
+IF Expression Syntax:
+-----------------------
+if(expr) {
+	body
+}
+
+IF-ELSE Expression Syntax:
+-----------------------
+if(expr) {
+	body1
+} else {
+	body2
+}
+
+IF-ELSEIF Expression Syntax:
+-----------------------
+if(expr1) {
+	body1
+} else if(expr2){
+	body2
+} else if(expr3){
+	body3
+}
+
+------------------------------------------
+
+NOTE: 
+1. scala does't support `ternary operator`
+2. c, c++,  java supports `ternary operator`
+
+<expression> ? <body1> : <body2>
+
+alternative is we have to use `if-else`
+
+------------------------------------------
+Loops in Scala
+-------------------------------
+for loop
+while loop
+do while loop
+
+------------------------------------------
+Array Syntax in Java:
+------------------------
+<data_type>[] <variable_name> = new <data_type>[<size>];
+
+<data_type>[] <variable_name> = {List of Values};
+
+Assign a new value:
+------------------------
+<variable_name>[index] = <value>;
+
+Access the value:
+------------------------
+<variable_name>[index];
+
+
+
+
+
+Array Syntax in Scala:
+------------------------
+val <variable_name> : Array[<data_type>] = new Array[<data_type>](<size>)
+
+val <variable_name> : Array[<data_type>] = Array[<data_type>](List of Values)
+
+
+Assign a new value:
+------------------------
+<variable_name>(index) = <value>
+
+Access the value:
+------------------------
+<variable_name>(index)
+
+
+
+
+Examples on Array in Scala
+------------------------------------------
+val arr : Array[String] = new Array[String](5)
+
+(or)
+
+val arr = new Array[String](5)
+
+------------------------------------------
+
+scala> val arr : Array[String] = new Array[String](5)
+arr: Array[String] = Array(null, null, null, null, null)
+
+scala> arr(0) = "hadoop_dev"
+
+scala> arr
+res9: Array[String] = Array(hadoop_dev, null, null, null, null)
+
+scala> arr(1) = "raj"
+
+scala> arr
+res11: Array[String] = Array(hadoop_dev, raj, null, null, null)
+
+scala> arr(5) = "venkat"
+java.lang.ArrayIndexOutOfBoundsException: 5
+  ... 33 elided
+
+scala> arr(4) = "venkat"
+
+scala> arr
+res14: Array[String] = Array(hadoop_dev, raj, null, null, venkat)
+
+scala> arr(3) = "sunil"
+
+scala> arr
+res16: Array[String] = Array(hadoop_dev, raj, null, sunil, venkat)
+
+scala> arr(2) = "anil"
+
+scala> arr
+res18: Array[String] = Array(hadoop_dev, raj, anil, sunil, venkat)
+
+
+scala> arr(0)
+res19: String = hadoop_dev
+
+scala> arr(1)
+res20: String = raj
+
+scala> arr(2)
+res21: String = anil
+
+scala> arr(3)
+res22: String = sunil
+
+scala> arr(4)
+res23: String = venkat
+
+
+Examples on Array in Scala
+------------------------------------------
+val arr : Array[String] = Array[String]("hadoop_dev", "raj", "anil", "sunil", "venkat")
+
+(or)
+
+val arr = Array[String]("hadoop_dev", "raj", "anil", "sunil", "venkat")
+
+(or)
+
+val arr = Array("hadoop_dev", "raj", "anil", "sunil", "venkat")
+
+
+------------------------------------------
+
+scala> val arr : Array[String] = Array[String]("hadoop_dev", "raj", "anil", "sunil", "venkat")
+arr: Array[String] = Array(hadoop_dev, raj, anil, sunil, venkat)
+
+scala> val arr = Array[String]("hadoop_dev", "raj", "anil", "sunil", "venkat")
+arr: Array[String] = Array(hadoop_dev, raj, anil, sunil, venkat)
+
+scala> val arr = Array("hadoop_dev", "raj", "anil", "sunil", "venkat")
+arr: Array[String] = Array(hadoop_dev, raj, anil, sunil, venkat)
+
+------------------------------------------
+
+modifying `hadoop_dev` to `xyz` in postion `0`
+
+scala> arr
+res24: Array[String] = Array(hadoop_dev, raj, anil, sunil, venkat)
+
+scala> arr(0)= "xyz"
+
+scala> arr
+res26: Array[String] = Array(xyz, raj, anil, sunil, venkat)
+
+------------------------------------------
+
+scala> arr(0)= "xyz"
+
+scala> arr = "xyz"
+<console>:11: error: reassignment to val
+       arr = "xyz"
+           ^
+
+------------------------------------------
+
+scala> var arr = Array[String]("hadoop_dev", "raj", "anil", "sunil", "venkat")
+arr: Array[String] = Array(hadoop_dev, raj, anil, sunil, venkat)
+
+scala> arr(0)= "xyz"
+
+scala> arr = "xyz"
+<console>:11: error: type mismatch;
+ found   : String("xyz")
+ required: Array[String]
+       arr = "xyz"
+             ^
+
+scala> arr = Array("xyz")
+arr: Array[String] = [Ljava.lang.String;@7d21852b
+
+scala> arr
+res29: Array[String] = Array(xyz)
+
+
+
+
+------------------------------------------
+
+val arr : Array[Any] = Array[Any](1,"hadoop_dev", true, 1.5f)
+
+(or)
+
+val arr = Array[Any](1,"hadoop_dev", true, 1.5f)
+
+(or)
+
+val arr = Array(1,"hadoop_dev", true, 1.5f)
+
+------------------------------------------
+
+Wrong Expressions:
+----------------------------
+val arr = Array[String](1,"hadoop_dev", true, 1.5f)
+val arr = Array[Int](1,"hadoop_dev", true, 1.5f)
+val arr = Array[Boolean](1,"hadoop_dev", true, 1.5f)
+val arr = Array[Float](1,"hadoop_dev", true, 1.5f)
+
+------------------------------------------
+For Loop Syntax in Scala
+------------------------------------------
+
+for(variable <- iterator) { expressions }
+
+for(variable <- iterator) yield { expressions }
+
+for(variable <- iterator <if condition>) { expressions }
+
+for(variable <- iterator <if condition>) yield { expressions }
+
+------------------------------------------
+
+val arr = Array[Int](1,2,3,4,5,6)
+
+(or)
+
+val arr = Array(1,2,3,4,5,6)
+
+
+for(x <- arr) { println(x) }
+
+
+------------------------------------------
+
+scala> val arr = Array(1,2,3,4,5,6)
+arr: Array[Int] = Array(1, 2, 3, 4, 5, 6)
+
+scala> for(x <- arr) { println(x) }
+1
+2
+3
+4
+5
+6
+
+------------------------------------------
+
+for(x <- arr) { if(x % 2 == 0) println(x) }
+
+scala> for(x <- arr) { if(x % 2 == 0) println(x) }
+2
+4
+6
+
+
+for(x <- arr if(x % 2 == 0)) { println(x) }
+
+scala> for(x <- arr if(x % 2 == 0)) { println(x) }
+2
+4
+6
+
+------------------------------------------
+
+for(x <- arr) { if(x % 2 == 0) println("Even Number") else println("Odd Number") }
+
+scala> for(x <- arr) { if(x % 2 == 0) println("Even Number") else println("Odd Number") }
+Odd Number
+Even Number
+Odd Number
+Even Number
+Odd Number
+Even Number
+
+
+------------------------------------------
+
+for(x <- arr) { if(x % 2 == 0) println("Even Number: " + x) else println("Odd Number: " + x) }
+
+scala> for(x <- arr) { if(x % 2 == 0) println("Even Number: " + x) else println("Odd Number: " + x) }
+Odd Number: 1
+Even Number: 2
+Odd Number: 3
+Even Number: 4
+Odd Number: 5
+Even Number: 6
+
+
+------------------------------------------
+
+for(x <- arr) { if(x % 2 == 0) x }
+
+scala> for(x <- arr) { if(x % 2 == 0) x }
+
+scala> val arr1 = for(x <- arr) yield { if(x % 2 == 0) x }
+arr1: Array[AnyVal] = Array((), 2, (), 4, (), 6)
+
+scala> arr1
+res36: Array[AnyVal] = Array((), 2, (), 4, (), 6)
+
+
+------------------------------------------
+STRING INTERPOLATION
+------------------------------------------
+val name = "hadoop_dev"
+val course = "spark"
+val count = 100
+val percentage = 90.123
+
+
+val msg1 = "name: " + name + ", course: " + course + ", count: " + count
+
+val msg2 = "name: $name, course: $course, count: $count"
+
+val msg3 = s"name: $name, course: $course, count: $count"
+
+val msg4 = s"name: $name, course: $course, percentage: $percentage"
+
+val msg5 = s"name: $name, course: $course, percentage: $percentage%.2f"
+
+val msg6 = f"name: $name, course: $course, percentage: $percentage%.2f"
+
+val msg7 = s"name: $name\ncourse: $course\ncount: $count"
+
+val msg8 = f"name: $name\ncourse: $course\ncount: $count"
+
+val msg9 = raw"name: $name\ncourse: $course\ncount: $count"
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+scala> val name = "hadoop_dev"
+name: String = hadoop_dev
+
+scala> val course = "spark"
+course: String = spark
+
+scala> val count = 100
+count: Int = 100
+
+scala> val percentage = 90.123
+percentage: Double = 90.123
+
+scala> val msg1 = "name: " + name + ", course: " + course + ", count: " + count
+msg1: String = name: hadoop_dev, course: spark, count: 100
+
+scala> val msg2 = "name: $name, course: $course, count: $count"
+msg2: String = name: $name, course: $course, count: $count
+
+scala> val msg3 = s"name: $name, course: $course, count: $count"
+msg3: String = name: hadoop_dev, course: spark, count: 100
+
+scala> val msg4 = s"name: $name, course: $course, percentage: $percentage"
+msg4: String = name: hadoop_dev, course: spark, percentage: 90.123
+
+scala> val msg5 = s"name: $name, course: $course, percentage: $percentage%.2f"
+msg5: String = name: hadoop_dev, course: spark, percentage: 90.123%.2f
+
+scala> val msg6 = f"name: $name, course: $course, percentage: $percentage%.2f"
+msg6: String = name: hadoop_dev, course: spark, percentage: 90.12
+
+scala> val msg7 = s"name: $name\ncourse: $course\ncount: $count"
+msg7: String =
+name: hadoop_dev
+course: spark
+count: 100
+
+scala> val msg8 = f"name: $name\ncourse: $course\ncount: $count"
+msg8: String =
+name: hadoop_dev
+course: spark
+count: 100
+
+scala> val msg9 = raw"name: $name\ncourse: $course\ncount: $count"
+msg9: String = name: hadoop_dev\ncourse: spark\ncount: 100
+
+
+
+------------------------------------------
+for(x <- arr) { if(x % 2 == 0) println("Even Number: " + x) else println("Odd Number: " + x) }
+
+(or)
+
+for(x <- arr) { 
+ if(x % 2 == 0) {
+  println("Even Number: " + x) 
+ } else {
+  println("Odd Number: " + x) 
+ }
+}
+
+(or)
+
+for(x <- arr) { 
+ if(x % 2 == 0) {
+  println(s"Even Number: $x") 
+ } else {
+  println(s"Odd Number: $x") 
+ }
+}
+
+------------------------------------------
+
+scala> for(x <- arr) { 
+     |  if(x % 2 == 0) {
+     |   println(s"Even Number: $x") 
+     |  } else {
+     |   println(s"Odd Number: $x") 
+     |  }
+     | }
+Odd Number: 1
+Even Number: 2
+Odd Number: 3
+Even Number: 4
+Odd Number: 5
+Even Number: 6
+
+
+------------------------------------------
+
+val arr = Array(1,2,3,4,5,6)
+
+val sub1 = new Array[Int](3)
+val sub2 = new Array[Int](3)
+
+var index1 = 0
+var index2 = 0
+
+for(x <- arr) { 
+ if(x % 2 == 0) {
+  sub1(index1) = x
+  index1 = index1 + 1
+ } else {
+  sub2(index2) = x
+  index2 = index2 + 1
+ }
+}
+
+------------------------------------------
+
+scala> val arr = Array(1,2,3,4,5,6)
+arr: Array[Int] = Array(1, 2, 3, 4, 5, 6)
+
+scala> val sub1 = new Array[Int](3)
+sub1: Array[Int] = Array(0, 0, 0)
+
+scala> val sub2 = new Array[Int](3)
+sub2: Array[Int] = Array(0, 0, 0)
+
+scala> var index = 0
+index: Int = 0
+
+scala> var index1 = 0
+index1: Int = 0
+
+scala> var index2 = 0
+index2: Int = 0
+
+scala> for(x <- arr) { 
+     |  if(x % 2 == 0) {
+     |   sub1(index1) = x
+     |   index1 = index1 + 1
+     |  } else {
+     |   sub2(index2) = x
+     |   index2 = index2 + 1
+     |  }
+     | }
+
+scala> sub1
+res39: Array[Int] = Array(2, 4, 6)
+
+scala> sub2
+res40: Array[Int] = Array(1, 3, 5)
+
+
+------------------------------------------
+
+scala> arr
+res41: Array[Int] = Array(1, 2, 3, 4, 5, 6)
+
+scala> arr.
+apply          clone          length     update   
+asInstanceOf   isInstanceOf   toString            
+
+scala> arr.length
+res42: Int = 6
+
+scala> arr.toString
+res43: String = [I@7b0d42b6
+
+scala> arr.apply(0)
+res44: Int = 1
+
+scala> arr.apply(1)
+res45: Int = 2
+
+scala> arr.apply(2)
+res46: Int = 3
+
+scala> arr(0)
+res47: Int = 1
+
+scala> arr(1)
+res48: Int = 2
+
+scala> arr(2)
+res49: Int = 3
+
+
+------------------------------------------
+
+
+1 to 10
+
+1 unitl 10
+
+
+1 to 10 by 2
+
+1 unitl 10 by 2
+
+------------------------------------------
+
+scala> 1 to 10
+res50: scala.collection.immutable.Range.Inclusive = Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+scala> 1 until 10
+res51: scala.collection.immutable.Range = Range(1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+scala> 1 to 10 by 2
+res52: scala.collection.immutable.Range = Range(1, 3, 5, 7, 9)
+
+scala> 1 until 10 by 2
+res53: scala.collection.immutable.Range = Range(1, 3, 5, 7, 9)
+
+scala> 1 to 10 by 3
+res54: scala.collection.immutable.Range = Range(1, 4, 7, 10)
+
+scala> 1 until 10 by 3
+res55: scala.collection.immutable.Range = Range(1, 4, 7)
+
+
+
+------------------------------------------
+
+scala> 10 to 1
+res57: scala.collection.immutable.Range.Inclusive = Range()
+
+scala> 10 to 1 by 1
+res58: scala.collection.immutable.Range = Range()
+
+scala> 10 to 1 by -1
+res59: scala.collection.immutable.Range = Range(10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+
+scala> 10 to 1 by -2
+res60: scala.collection.immutable.Range = Range(10, 8, 6, 4, 2)
+
+scala> 10 to 1 by -3
+res61: scala.collection.immutable.Range = Range(10, 7, 4, 1)
+
+
+------------------------------------------
+Collections in Scala:
+------------------------------------------
+Scala supports 2 types of collections
+
+1. Immutable Collections :
+
+scala.collection.immutable
+
+2. Mutable Collections :
+
+scala.collection.mutable
+
+------------------------------------------
+
+scala> scala.collection.immutable.
+::                    LongMap                SortedMap        
+AbstractMap           LongMapEntryIterator   SortedSet        
+BitSet                LongMapIterator        Stack            
+DefaultMap            LongMapKeyIterator     Stream           
+HashMap               LongMapUtils           StreamIterator   
+HashSet               LongMapValueIterator   StreamView       
+IndexedSeq            Map                    StreamViewLike   
+IntMap                MapLike                StringLike       
+IntMapEntryIterator   MapProxy               StringOps        
+IntMapIterator        Nil                    Traversable      
+IntMapKeyIterator     NumericRange           TreeMap          
+IntMapUtils           Page                   TreeSet          
+IntMapValueIterator   PagedSeq               TrieIterator     
+Iterable              Queue                  Vector           
+LinearSeq             Range                  VectorBuilder    
+List                  RedBlackTree           VectorIterator   
+ListMap               Seq                    VectorPointer    
+ListSerializeEnd      Set                    WrappedString    
+ListSet               SetProxy                                
+
+
+
+------------------------------------------
+scala> scala.collection.mutable.
+AVLIterator            ListBuffer                  
+AVLTree                ListMap                     
+AbstractBuffer         LongMap                     
+AbstractIterable       Map                         
+AbstractMap            MapBuilder                  
+AbstractSeq            MapLike                     
+AbstractSet            MapProxy                    
+AnyRefMap              MultiMap                    
+ArrayBuffer            MutableList                 
+ArrayBuilder           Node                        
+ArrayLike              ObservableBuffer            
+ArrayOps               ObservableMap               
+ArraySeq               ObservableSet               
+ArrayStack             OpenHashMap                 
+BitSet                 PriorityQueue               
+Buffer                 PriorityQueueProxy          
+BufferLike             Publisher                   
+BufferProxy            Queue                       
+Builder                QueueProxy                  
+Cloneable              ResizableArray              
+DefaultEntry           RevertibleHistory           
+DefaultMapModel        Seq                         
+DoubleLinkedList       SeqLike                     
+DoubleLinkedListLike   Set                         
+FlatHashTable          SetBuilder                  
+GrowingBuilder         SetLike                     
+HashEntry              SetProxy                    
+HashMap                SortedSet                   
+HashSet                Stack                       
+HashTable              StackProxy                  
+History                StringBuilder               
+ImmutableMapAdaptor    Subscriber                  
+ImmutableSetAdaptor    SynchronizedBuffer          
+IndexedSeq             SynchronizedMap             
+IndexedSeqLike         SynchronizedPriorityQueue   
+IndexedSeqOptimized    SynchronizedQueue           
+IndexedSeqView         SynchronizedSet             
+Iterable               SynchronizedStack           
+LazyBuilder            Traversable                 
+Leaf                   TreeSet                     
+LinearSeq              Undoable                    
+LinkedEntry            UnrolledBuffer              
+LinkedHashMap          WeakHashMap                 
+LinkedHashSet          WrappedArray                
+LinkedList             WrappedArrayBuilder         
+LinkedListLike                                     
+
+
+
+
+------------------------------------------
+Examples on Collections
+------------------------------------------
+
+val arr : Array[Int] = Array[Int](1,2,3,4,5,6)
+
+val list : List[Int] = List[Int](1,2,3,4,5,6)
+val seq : Seq[Int] = Seq[Int](1,2,3,4,5,6)
+val set : Set[Int] = Set[Int](1,2,3,4,5,6)
+val stream : Stream[Int] = Stream[Int](1,2,3,4,5,6)
+val vector : Vector[Int] = Vector[Int](1,2,3,4,5,6)
+
+These below statements are not allowed
+-----------------------------------------
+val stack : Stack[Int] = Stack[Int](1,2,3,4,5,6)
+val queue : Queue[Int] = Queue[Int](1,2,3,4,5,6)
+
+------------------------------------------
+
+
+scala> val stack : Stack[Int] = Stack[Int](1,2,3,4,5,6)
+<console>:10: error: not found: type Stack
+       val stack : Stack[Int] = Stack[Int](1,2,3,4,5,6)
+                   ^
+<console>:10: error: not found: value Stack
+       val stack : Stack[Int] = Stack[Int](1,2,3,4,5,6)
+                                ^
+
+scala> val queue : Queue[Int] = Queue[Int](1,2,3,4,5,6)
+<console>:10: error: not found: type Queue
+       val queue : Queue[Int] = Queue[Int](1,2,3,4,5,6)
+                   ^
+<console>:10: error: not found: value Queue
+       val queue : Queue[Int] = Queue[Int](1,2,3,4,5,6)
+                                ^
+
+
+------------------------------------------
+
+scala> val arr : Array[Int] = Array[Int](1,2,3,4,5,6)
+arr: Array[Int] = Array(1, 2, 3, 4, 5, 6)
+
+scala> val list : List[Int] = List[Int](1,2,3,4,5,6)
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> val seq : Seq[Int] = Seq[Int](1,2,3,4,5,6)
+seq: Seq[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> val set : Set[Int] = Set[Int](1,2,3,4,5,6)
+set: Set[Int] = Set(5, 1, 6, 2, 3, 4)
+
+scala> val stream : Stream[Int] = Stream[Int](1,2,3,4,5,6)
+stream: Stream[Int] = Stream(1, ?)
+
+scala> val vector : Vector[Int] = Vector[Int](1,2,3,4,5,6)
+vector: Vector[Int] = Vector(1, 2, 3, 4, 5, 6)
+
+
+
+------------------------------------------
+
+scala> val stack : scala.collection.immutable.Stack[Int] = scala.collection.immutable.Stack[Int](1,2,3,4,5,6)
+warning: there was one deprecation warning; re-run with -deprecation for details
+stack: scala.collection.immutable.Stack[Int] = Stack(1, 2, 3, 4, 5, 6)
+
+scala> val stack : scala.collection.mutable.Stack[Int] = scala.collection.mutable.Stack[Int](1,2,3,4,5,6)
+stack: scala.collection.mutable.Stack[Int] = Stack(1, 2, 3, 4, 5, 6)
+
+
+------------------------------------------
+
+scala> val queue : scala.collection.immutable.Queue[Int] = scala.collection.immutable.Queue[Int](1,2,3,4,5,6)
+queue: scala.collection.immutable.Queue[Int] = Queue(1, 2, 3, 4, 5, 6)
+
+scala> val queue : scala.collection.mutable.Queue[Int] = scala.collection.mutable.Queue[Int](1,2,3,4,5,6)
+queue: scala.collection.mutable.Queue[Int] = Queue(1, 2, 3, 4, 5, 6)
+
+
+
+
+------------------------------------------
+
+
+Scala allows convertions on Collections
+------------------------------------------
+1. convert scala `immutable collection` to `mutable collection` using `toBuffer` method
+
+2. convert scala `mutable collection` to `immutable collection` using `toList` method
+
+3. scala supports convert `scala collections` to `java collections`
+
+4. scala supports convert `java collections` to `scala collections`
+
+------------------------------------------
+
+
+val list : List[Int] = List[Int](1,2,3,4,5,6)
+
+(or)
+
+val list = List[Int](1,2,3,4,5,6)
+
+(or)
+
+val list = List(1,2,3,4,5,6)
+
+(or)
+
+val list = 1 :: 2 :: 3 :: 4 :: 5 :: 6 :: Nil
+
+(or)
+
+val list = 1 :: (2 :: (3 :: (4 :: (5 :: (6 :: Nil)))))
+
+(or)
+
+val list = Nil.::(6).::(5).::(4).::(3).::(2).::(1)
+
+
+------------------------------------------
+
+scala> val list : List[Int] = List[Int](1,2,3,4,5,6)
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> val list = List[Int](1,2,3,4,5,6)
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> val list = List(1,2,3,4,5,6)
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> val list = 1 :: 2 :: 3 :: 4 :: 5 :: 6 :: Nil
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> val list = 1 :: (2 :: (3 :: (4 :: (5 :: (6 :: Nil)))))
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> val list = Nil.::(6).::(5).::(4).::(3).::(2).::(1)
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> 
+
+
+
+------------------------------------------
+
+var list = 6 :: Nil
+
+list = 5 :: list
+
+list = 4 :: list
+
+list = 3 :: list
+
+list = 2 :: list
+
+list = 1 :: list
+
+------------------------------------------
+
+scala> var list = 6 :: Nil
+list: List[Int] = List(6)
+
+scala> list = 5 :: list
+list: List[Int] = List(5, 6)
+
+scala> list = 4 :: list
+list: List[Int] = List(4, 5, 6)
+
+scala> list = 3 :: list
+list: List[Int] = List(3, 4, 5, 6)
+
+scala> list = 2 :: list
+list: List[Int] = List(2, 3, 4, 5, 6)
+
+scala> list = 1 :: list
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+
+------------------------------------------
+
+var list = List(4,5)
+
+list = 3 +: list
+
+list = list :+ 6
+
+list = 2 +: list :+ 7
+
+------------------------------------------
+
+
+scala> var list = List(4,5)
+list: List[Int] = List(4, 5)
+
+scala> list = 3 +: list
+list: List[Int] = List(3, 4, 5)
+
+scala> list = list :+ 6
+list: List[Int] = List(3, 4, 5, 6)
+
+scala> list = 2 +: list :+ 7
+list: List[Int] = List(2, 3, 4, 5, 6, 7)
+
+
+------------------------------------------
+
+val list1 = List(1,2,3)
+
+val list2 = List(4,5,6)
+
+val list3 = list1 :: list2
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+scala> val list1 = List(1,2,3)
+list1: List[Int] = List(1, 2, 3)
+
+scala> val list2 = List(4,5,6)
+list2: List[Int] = List(4, 5, 6)
+
+scala> val list3 = list1 :: list2
+list3: List[Any] = List(List(1, 2, 3), 4, 5, 6)
+
+scala> val list3 = list1 +: list2
+list3: List[Any] = List(List(1, 2, 3), 4, 5, 6)
+
+scala> val list3 = list1 :+ list2
+list3: List[Any] = List(1, 2, 3, List(4, 5, 6))
+
+scala> val list3 = list1 ::: list2
+list3: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+
+------------------------------------------
+
+var l1 = List(1,2,3,4,5,6)
+
+var l2 = scala.collection.mutable.ListBuffer(1,2,3,4,5,6)
+
+l1 = l1 :+ 7
+
+l2 = l2 :+ 7
+
+
+l1.remove(3) // not allowed
+
+l2.remove(3) // allowed
+
+
+convert `immutable collection` to `mutable collection` using `toBuffer`
+
+convert `mutable collection` to `immutable collection` using `toList`
+
+val l11 = l1.toBuffer
+
+l11.remove(3)
+
+val l12 = l11.toList
+
+
+------------------------------------------
+
+scala> var l1 = List(1,2,3,4,5,6)
+l1: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> var l2 = scala.collection.mutable.ListBuffer(1,2,3,4,5,6)
+l2: scala.collection.mutable.ListBuffer[Int] = ListBuffer(1, 2, 3, 4, 5, 6)
+
+
+
+scala> l1 = l1 :+ 7
+l1: List[Int] = List(1, 2, 3, 4, 5, 6, 7)
+
+scala> l2 = l2 :+ 7
+l2: scala.collection.mutable.ListBuffer[Int] = ListBuffer(1, 2, 3, 4, 5, 6, 7)
+
+
+
+------------------------------------------
+
+
+scala> l1.remove(3)
+<console>:12: error: value remove is not a member of List[Int]
+       l1.remove(3)
+          ^
+
+scala> l2.remove(3)
+res2: Int = 4
+
+scala> l2
+res3: scala.collection.mutable.ListBuffer[Int] = ListBuffer(1, 2, 3, 5, 6, 7)
+
+
+------------------------------------------
+
+scala> val l11 = l1.toBuffer
+l11: scala.collection.mutable.Buffer[Int] = ArrayBuffer(1, 2, 3, 4, 5, 6, 7)
+
+scala> l11.remove(3)
+res4: Int = 4
+
+scala> val l12 = l11.toList
+l12: List[Int] = List(1, 2, 3, 5, 6, 7)
+
+
+
+------------------------------------------
+Java List:
+----------------
+ArrayList<Integer> list = new ArrayList<Integer>(5);
+
+list.add(1);
+list.add(2);
+list.add(3);
+list.add(4);
+list.add(5);
+
+list.remove(1);
+
+
+Scala Syntax of Java List:
+--------------------------------
+var list = new java.util.ArrayList[Int](5)
+
+
+------------------------------------------
+
+
+var l2 = scala.collection.mutable.ListBuffer(1,2,3,4,5,6)
+
+------------------------------------------
+
+scala> var l2 = scala.collection.mutable.ListBuffer(1,2,3,4,5,6)
+l2: scala.collection.mutable.ListBuffer[Int] = ListBuffer(1, 2, 3, 4, 5, 6)
+
+scala> l2.map(x => x + 1)
+res5: scala.collection.mutable.ListBuffer[Int] = ListBuffer(2, 3, 4, 5, 6, 7)
+
+scala> l2.remove(5)
+res6: Int = 6
+
+scala> l2.map(x => x + 1)
+res7: scala.collection.mutable.ListBuffer[Int] = ListBuffer(2, 3, 4, 5, 6)
+
+scala> l2.add(6)
+<console>:12: error: value add is not a member of scala.collection.mutable.ListBuffer[Int]
+       l2.add(6)
+          ^
+
+
+
+------------------------------------------
+
+
+scala> var list = new java.util.ArrayList[Int](5)
+list: java.util.ArrayList[Int] = []
+
+scala> list.add(1)
+res9: Boolean = true
+
+scala> list.add(2)
+res10: Boolean = true
+
+scala> list.add(3)
+res11: Boolean = true
+
+scala> list.add(4)
+res12: Boolean = true
+
+scala> list.add(5)
+res13: Boolean = true
+
+scala> list.add(6)
+res14: Boolean = true
+
+scala> list
+res15: java.util.ArrayList[Int] = [1, 2, 3, 4, 5, 6]
+
+scala> list.remove(5)
+res16: Int = 6
+
+scala> list
+res17: java.util.ArrayList[Int] = [1, 2, 3, 4, 5]
+
+scala> list.map(x => x + 1)
+<console>:12: error: value map is not a member of java.util.ArrayList[Int]
+       list.map(x => x + 1)
+            ^
+
+
+
+
+------------------------------------------
+Functions in Scala
+------------------------------------------
+1. Anonymus Functions
+
+2. Named Functions
+
+3. Curried Functions
+
+------------------------------------------
+
+
+
+1. Anonymus Functions
+------------------------------------------
+(arguments) => {expressions}
+
+
+2. Named Functions
+-----------------------------------------
+def fun_name(arguments) : <data_type> = {expressions}
+
+
+3. Curried Functions
+-----------------------------------------
+def fun_name(arguments)(arguments)(arguments) : <data_type> = {expressions}
+
+
+------------------------------------------
+Examples on Functions
+------------------------------------------
+1. Anonymus Functions
+------------------------------------------
+
+(a: Int, b: Int, c: Int) => { a + b + c }
+
+we will assign variable to `anonymus functions`
+
+val add1 = (a: Int, b: Int, c: Int) => { a + b + c }
+
+add1(10,20,30)
+
+------------------------------------------
+
+scala> (a: Int, b: Int, c: Int) => { a + b + c }
+res19: (Int, Int, Int) => Int = <function3>
+
+scala> val add1 = (a: Int, b: Int, c: Int) => { a + b + c }
+add1: (Int, Int, Int) => Int = <function3>
+
+scala> add1(10,20,30)
+res20: Int = 60
+
+scala> add1(1,2,0)
+res21: Int = 3
+
+
+
+2. Named Functions
+-----------------------------------------
+
+def add2(a: Int, b: Int, c: Int) : Int = { a + b + c }
+
+add2(10,20,30)
+
+------------------------------------------
+
+scala> def add2(a: Int, b: Int, c: Int) : Int = { a + b + c }
+add2: (a: Int, b: Int, c: Int)Int
+
+scala> add2(10,20,30)
+res22: Int = 60
+
+scala> add2(1,2,0)
+res23: Int = 3
+
+3. Curried Functions
+-----------------------------------------
+
+def x1(a: Int, b: Int, c: Int): Int =  { a + b + c }
+
+def x2(a: Int, b: Int)(c: Int): Int =  { a + b + c }
+
+def x3(a: Int)(b: Int, c: Int): Int =  { a + b + c }
+
+def x4(a: Int)(b: Int)(c: Int): Int =  { a + b + c }
+
+------------------------------------------
+
+
+scala> def x1(a: Int, b: Int, c: Int): Int =  { a + b + c }
+x1: (a: Int, b: Int, c: Int)Int
+
+scala> def x2(a: Int, b: Int)(c: Int): Int =  { a + b + c }
+x2: (a: Int, b: Int)(c: Int)Int
+
+scala> def x3(a: Int)(b: Int, c: Int): Int =  { a + b + c }
+x3: (a: Int)(b: Int, c: Int)Int
+
+scala> def x4(a: Int)(b: Int)(c: Int): Int =  { a + b + c }
+x4: (a: Int)(b: Int)(c: Int)Int
+
+
+
+------------------------------------------
+x1(1,2,3)
+
+x2(1,2)(3)
+
+x3(1)(2,3)
+
+x4(1)(2)(3)
+
+
+------------------------------------------
+
+scala> x1(1,2,3)
+res24: Int = 6
+
+scala> x2(1,2)(3)
+res25: Int = 6
+
+scala> x3(1)(2,3)
+res26: Int = 6
+
+scala> x4(1)(2)(3)
+res27: Int = 6
+
+
+------------------------------------------
+
+def fun1(a: Int, b: Int, c: Int): Int =  { a + b + c }
+
+def fun2(a: Int, b: Int, c: Int = 3): Int =  { a + b + c }
+
+def fun3(a: Int, b: Int = 2, c: Int = 3): Int =  { a + b + c }
+
+def fun4(a: Int = 1, b: Int = 2, c: Int = 3): Int =  { a + b + c }
+
+------------------------------------------
+
+scala> def fun1(a: Int, b: Int, c: Int): Int =  { a + b + c }
+fun1: (a: Int, b: Int, c: Int)Int
+
+scala> def fun2(a: Int, b: Int, c: Int = 3): Int =  { a + b + c }
+fun2: (a: Int, b: Int, c: Int)Int
+
+scala> def fun3(a: Int, b: Int = 2, c: Int = 3): Int =  { a + b + c }
+fun3: (a: Int, b: Int, c: Int)Int
+
+scala> def fun4(a: Int = 1, b: Int = 2, c: Int = 3): Int =  { a + b + c }
+fun4: (a: Int, b: Int, c: Int)Int
+
+
+------------------------------------------
+
+fun1(1,2,3)
+
+fun2(1,2,3)
+
+fun3(1,2,3)
+
+fun4(1,2,3)
+
+
+------------------------------------------
+
+fun2(1,2,3)
+
+(or)
+
+fun2(1,2)
+
+------------------------------------------
+
+fun3(1,2,3)
+
+(or)
+
+fun3(1,2)
+
+(or)
+
+fun3(1)
+
+------------------------------------------
+
+fun4(1,2,3)
+
+(or)
+
+fun4(1,2)
+
+(or)
+
+fun4(1)
+
+(or)
+
+fun4()
+
+------------------------------------------
+how to swap the arguments in a function
+------------------------------------------
+
+fun1(a = 1, b = 2, c = 3)
+
+(or)
+
+fun1(b = 2, a = 1, c = 3)
+
+(or)
+
+fun1(c = 3, a = 1, b = 2)
+
+(or)
+
+fun1(b = 2, a = 1, c = 3)
+
+------------------------------------------
+
+scala> fun1(a = 1, b = 2, c = 3)
+res28: Int = 6
+
+scala> fun1(b = 2, a = 1, c = 3)
+res29: Int = 6
+
+scala> fun1(c = 3, a = 1, b = 2)
+res30: Int = 6
+
+scala> fun1(b = 2, a = 1, c = 3)
+res31: Int = 6
+
+
+------------------------------------------
+
+Factorial(n) = n * (n-1) * (n-2) * ..... * 3 * 2 * 1
+
+Factorial(n) = 1 * 2 * 3 * ..... * (n-2) * (n-1) * n
+
+------------------------------------------
+
+def factorial1(n : Int) : Int = {
+ var res = 1
+ for(x <- 1 to n) res = res * x
+ res
+}
+
+------------------------------------------
+scala> def factorial1(n : Int) : Int = {
+     |  var res = 1
+     |  for(x <- 1 to n) res = res * x
+     |  res
+     | }
+factorial1: (n: Int)Int
+
+scala> factorial1(5)
+res32: Int = 120
+
+scala> factorial1(4)
+res33: Int = 24
+
+
+------------------------------------------
+
+def factorial2(n : Int) : Int = {
+if(n == 0){ 1 }
+else { n * factorial2(n-1) }
+}
+
+------------------------------------------
+
+scala> def factorial2(n : Int) : Int = {
+     | if(n == 0){ 1 }
+     | else { n * factorial2(n-1) }
+     | }
+factorial2: (n: Int)Int
+
+scala> factorial2(5)
+res34: Int = 120
+
+scala> factorial2(4)
+res35: Int = 24
+
+
+------------------------------------------
+def factorial2(n : Int) : Int = {
+println(s"n: $n")
+if(n == 0){ 1 }
+else { n * factorial2(n-1) }
+}
+
+------------------------------------------
+scala> def factorial2(n : Int) : Int = {
+     | println(s"n: $n")
+     | if(n == 0){ 1 }
+     | else { n * factorial2(n-1) }
+     | }
+factorial2: (n: Int)Int
+
+scala> factorial2(5)
+n: 5
+n: 4
+n: 3
+n: 2
+n: 1
+n: 0
+res36: Int = 120
+
+------------------------------------------
+
+def factorial2(n : Int) : Int = {
+println(s"n: $n")
+if(n == 1){ 1 }
+else { n * factorial2(n-1) }
+}
+
+------------------------------------------
+
+scala> def factorial2(n : Int) : Int = {
+     | println(s"n: $n")
+     | if(n == 1){ 1 }
+     | else { n * factorial2(n-1) }
+     | }
+factorial2: (n: Int)Int
+
+scala> factorial2(5)
+n: 5
+n: 4
+n: 3
+n: 2
+n: 1
+res37: Int = 120
+
+
+
+------------------------------------------
+
+def factorial3(n : Int) : Int = {
+def fact(start: Int, end: Int) : Int = {
+ println(s"n: $start")
+ if(start == end) { end }
+ else { start * fact(start + 1, end) }
+}
+fact(1, n)
+}
+
+------------------------------------------
+
+scala> def factorial3(n : Int) : Int = {
+     | def fact(start: Int, end: Int) : Int = {
+     |  println(s"n: $start")
+     |  if(start == end) { end }
+     |  else { start * fact(start + 1, end) }
+     | }
+     | fact(1, n)
+     | }
+factorial3: (n: Int)Int
+
+scala> factorial3(5)
+n: 1
+n: 2
+n: 3
+n: 4
+n: 5
+res38: Int = 120
+
+
+
+
+------------------------------------------
+
+def fact(start: Int, end: Int) : Int = {
+ if(start == end) { end }
+ else { start * fact(start + 1, end) }
+}
+
+def fact(start: Int, end: Int, res: Int) : Int = {
+
+}
+
+@tailrec
+def fact(n: Int, res: Int) : Int = {
+ if(n == 1) { res }
+ else { fact(n -1, n * res) }
+}
+
+fact(5,1)
+
+------------------------------------------
+Transformations in Scala
+------------------------------------------
+
+val list = List(1,2,3,4,5,6)
+
+
+(x: Int) => { x + 1 }
+
+def f1(x: Int) : Int = { x + 1 }
+
+
+list.map((x: Int) => { x + 1 })
+
+(or)
+
+list.map(x => { x + 1 })
+
+(or)
+
+list.map(x => x + 1)
+
+(or)
+
+list.map(_ + 1)
+
+
+
+def f1(x: Int) : Int = { x + 1 }
+
+list.map((x: Int) => f1(x))
+
+(or)
+
+list.map(x => f1(x))
+
+(or)
+
+list.map(f1(_))
+
+(or)
+
+list.map(f1)
+
+
+
+------------------------------------------
+
+scala> val list = List(1,2,3,4,5,6)
+list: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> list.map((x: Int) => { x + 1 })
+res42: List[Int] = List(2, 3, 4, 5, 6, 7)
+
+scala> list.map((x: Int) => { x + 2 })
+res43: List[Int] = List(3, 4, 5, 6, 7, 8)
+
+scala> list.map(x => { x + 2 })
+res44: List[Int] = List(3, 4, 5, 6, 7, 8)
+
+scala> list.map(x => x + 2)
+res45: List[Int] = List(3, 4, 5, 6, 7, 8)
+
+scala> list.map(_ + 2)
+res46: List[Int] = List(3, 4, 5, 6, 7, 8)
+
+
+------------------------------------------
+
+scala> def f1(x: Int) : Int = { x + 1 }
+f1: (x: Int)Int
+
+scala> list.map((x: Int) => f1(x))
+res47: List[Int] = List(2, 3, 4, 5, 6, 7)
+
+scala> list.map(x => f1(x))
+res48: List[Int] = List(2, 3, 4, 5, 6, 7)
+
+scala> list.map(f1)
+res49: List[Int] = List(2, 3, 4, 5, 6, 7)
+
+scala> list.map(f1(_))
+res50: List[Int] = List(2, 3, 4, 5, 6, 7)
+
+
+------------------------------------------
+
+scala> list
+res51: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> list.filter((x: Int) => { x > 2 })
+res52: List[Int] = List(3, 4, 5, 6)
+
+scala> list.filter(x => { x > 2 })
+res53: List[Int] = List(3, 4, 5, 6)
+
+scala> list.filter(x => x > 2 )
+res54: List[Int] = List(3, 4, 5, 6)
+
+scala> list.filter(_ > 2 )
+res55: List[Int] = List(3, 4, 5, 6)
+
+
+------------------------------------------
+
+scala> list
+res56: List[Int] = List(1, 2, 3, 4, 5, 6)
+
+scala> list.sum
+res57: Int = 21
+
+scala> list.min
+res58: Int = 1
+
+scala> list.max
+res59: Int = 6
+
+------------------------------------------
+
+scala> list.reduce((a: Int, b: Int) => { a + b } )
+res60: Int = 21
+
+scala> list.sum
+res61: Int = 21
+
+scala> list.reduce((a: Int, b: Int) => { if( a < b )  a else b } )
+res62: Int = 1
+
+scala> list.min
+res63: Int = 1
+
+scala> list.reduce((a: Int, b: Int) => { if( a > b )  a else b } )
+res64: Int = 6
+
+scala> list.max
+res65: Int = 6
+
+
+
+------------------------------------------
+
+scala> list.reduce((a: Int, b: Int) => { a + b } )
+res66: Int = 21
+
+scala> list.reduce(_ + _)
+res67: Int = 21
+
+scala> list.reduce((a: Int, b: Int) => { if( a > b )  a else b } )
+res68: Int = 6
+
+scala> list.reduce(Math.min(_,_))
+res69: Int = 1
+
+scala> list.reduce(Math.max(_,_))
+res70: Int = 6
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
+
+
+------------------------------------------
+
+
+
+------------------------------------------
+
+
